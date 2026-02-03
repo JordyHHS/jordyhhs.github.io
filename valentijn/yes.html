@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <title>YES!!! 💖</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <style>
+    html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+    body {
+  background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+  text-align: center;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  padding-top: 40px;
+  overflow-x: hidden;
+    }
+
+    h1 {
+      font-size: 3.5em;
+      color: #ff2e63;
+    }
+
+    .gif-box {
+      margin: 20px auto;
+      width: 300px;
+      height: 300px;
+      background: rgba(255,255,255,0.35);
+      border-radius: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .gif-box img {
+      max-width: 100%;
+      max-height: 100%;
+      border-radius: 20px;
+    }
+
+    .coords-box {
+  margin-top: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+
+.coord-input {
+  width: min(80vw, 280px);
+  padding: 14px 18px;
+  font-size: 1.1em;
+  border-radius: 15px;
+  border: none;
+  outline: none;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.85);
+  cursor: default;
+}
+
+.coords-hint {
+  margin-bottom: 8px;
+  font-size: 1.1em;
+  color: #ff4d6d;
+  font-weight: 600;
+}
+
+.countdown-box {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.countdown-title {
+  font-size: 1.1em;
+  color: #ff4d6d;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.countdown-timer {
+  font-size: 1.6em;
+  font-weight: bold;
+  background: rgba(255, 255, 255, 0.85);
+  padding: 12px 20px;
+  border-radius: 15px;
+  display: inline-block;
+  letter-spacing: 1px;
+}
+
+    
+
+    .confetti-btn {
+      font-size: 1.4em;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 20px;
+      background-color: #ff4d6d;
+      color: white;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>YES!!! 💖💖💖</h1>
+
+  <!-- 🎞️ GIF VAKJE -->
+  <div class="gif-box">
+    <img src="gifs/yes.gif" alt="feest gif">
+  </div>
+
+<div class="coords-box">
+  <p class="coords-hint">Waar zou dit zijn…? 🧭✨</p>
+
+  <input
+    type="text"
+    class="coord-input"
+    value="Latitude: 52.51447"
+    readonly
+  >
+  <input
+    type="text"
+    class="coord-input"
+    value="Longitude: 6.087947"
+    readonly
+  >
+</div>
+
+<div class="countdown-box">
+  <p class="countdown-title">Nog even tot Valentijnsdag… ⏳💖</p>
+  <div id="countdown" class="countdown-timer">
+    -- dagen --:--:--
+  </div>
+</div>
+
+
+  <button class="confetti-btn" onclick="moreConfetti()">
+    Meer confetti!? 🎉
+  </button>
+
+  <script>
+    function moreConfetti() {
+      confetti({ particleCount: 200, spread: 120, origin: { y: 0.6 } });
+      confetti({ particleCount: 120, angle: 60, spread: 55, origin: { x: 0 } });
+      confetti({ particleCount: 120, angle: 120, spread: 55, origin: { x: 1 } });
+    }
+
+    moreConfetti();
+
+      function updateCountdown() {
+    const now = new Date();
+    const year = now.getFullYear();
+
+    // Valentijnsdag: 14 februari
+    let valentinesDay = new Date(year, 1, 14, 18, 15, 0);
+
+    // Als Valentijnsdag dit jaar al voorbij is → volgend jaar
+    if (now > valentinesDay) {
+      valentinesDay = new Date(year + 1, 1, 14, 0, 0, 0);
+    }
+
+    const diff = valentinesDay - now;
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+
+    document.getElementById("countdown").textContent =
+      `${days} dagen ${hours.toString().padStart(2, "0")}:` +
+      `${minutes.toString().padStart(2, "0")}:` +
+      `${seconds.toString().padStart(2, "0")}`;
+  }
+
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+  </script>
+
+</body>
+</html>
