@@ -68,7 +68,6 @@
 
   <h1>Hoi Jasmin! Wil je mijn Valentijn zijn? 💘</h1>
 
-  <!-- 🎞️ GIF VAKJE -->
   <div class="gif-box">
     <img src="gifs/vraag.gif" alt="liefde gif">
   </div>
@@ -126,15 +125,12 @@ function moveNoButton() {
     attempts++;
   } while (overlaps(noButton, yesButton) && attempts < 50);
 
-  // 💖 Ja groeit
   yesScale += 0.35;
   yesButton.style.transform = `translateX(-50%) scale(${yesScale})`;
 
-  // 🚀 AUTOMATISCH DOOR NAAR YES
   if (yesScale >= AUTO_YES_SCALE) {
     redirected = true;
 
-    // kleine dramatische pauze 😌
     setTimeout(() => {
       window.location.href = "yes.html";
     }, 400);
