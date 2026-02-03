@@ -110,7 +110,6 @@
 
   <h1>Kon ook niet anders... Onweerstaanbaar 😉</h1>
 
-  <!-- 🎞️ GIF VAKJE -->
   <div class="gif-box">
     <img src="gifs/yes.gif" alt="feest gif">
   </div>
@@ -163,10 +162,8 @@
     const now = new Date();
     const year = now.getFullYear();
 
-    // Valentijnsdag: 14 februari
     let valentinesDay = new Date(year, 1, 14, 18, 15, 0);
 
-    // Als Valentijnsdag dit jaar al voorbij is → volgend jaar
     if (now > valentinesDay) {
       valentinesDay = new Date(year + 1, 1, 14, 0, 0, 0);
     }
