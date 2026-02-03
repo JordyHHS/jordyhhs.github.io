@@ -56,6 +56,7 @@
       left: 50%;
       transform: translateX(-50%);
       top: 30%;
+      transition: transform 0.25s ease;
     }
 
     #no {
@@ -80,8 +81,26 @@
   <script>
     const noButton = document.getElementById("no");
     const container = document.querySelector(".buttons");
+    const yesButton = document.getElementById("yes");
+    let yesScale = 1;
+    let redirected = false;
+const AUTO_YES_SCALE = 5;     
+
+        function overlaps(a, b) {
+  const r1 = a.getBoundingClientRect();
+  const r2 = b.getBoundingClientRect();
+
+  return !(
+    r1.right < r2.left ||
+    r1.left > r2.right ||
+    r1.bottom < r2.top ||
+    r1.top > r2.bottom
+  );
+}
 
 function moveNoButton() {
+  if (redirected) return;
+
   const containerRect = container.getBoundingClientRect();
   const buttonRect = noButton.getBoundingClientRect();
 
@@ -94,24 +113,46 @@ function moveNoButton() {
   const maxY =
     containerRect.height - buttonRect.height - paddingBottom;
 
-  const x = Math.random() * maxX + paddingSides;
-  const y = Math.random() * maxY + paddingTop;
+  let x, y;
+  let attempts = 0;
 
-  noButton.style.left = x + "px";
-  noButton.style.top = y + "px";
+  do {
+    x = Math.random() * maxX + paddingSides;
+    y = Math.random() * maxY + paddingTop;
+
+    noButton.style.left = x + "px";
+    noButton.style.top = y + "px";
+
+    attempts++;
+  } while (overlaps(noButton, yesButton) && attempts < 50);
+
+  // 💖 Ja groeit
+  yesScale += 0.35;
+  yesButton.style.transform = `translateX(-50%) scale(${yesScale})`;
+
+  // 🚀 AUTOMATISCH DOOR NAAR YES
+  if (yesScale >= AUTO_YES_SCALE) {
+    redirected = true;
+
+    // kleine dramatische pauze 😌
+    setTimeout(() => {
+      window.location.href = "yes.html";
+    }, 400);
+  }
 }
 
-    noButton.addEventListener("mouseenter", moveNoButton);
-    noButton.addEventListener("touchstart", (e) => {
-      e.preventDefault();
-      moveNoButton();
-    });
+noButton.addEventListener("mouseenter", moveNoButton);
+noButton.addEventListener("touchstart", (e) => {
+  e.preventDefault();
+  moveNoButton();
+});
 
-    moveNoButton();
+moveNoButton();
 
     function goToYes() {
       window.location.href = "yes.html";
     }
+
   </script>
 
 </body>
